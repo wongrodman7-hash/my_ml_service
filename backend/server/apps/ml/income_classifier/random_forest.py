@@ -11,8 +11,13 @@ class RandomForestClassifier:
     def preprocessing(self, input_data): 
         # JSON to pandas DataFrame 
         input_data = pd.DataFrame(input_data, index=[0]) 
+        # ensure column order
+        expected_columns = ["age", "workclass", "fnlwgt", "education", "education-num", "marital-status", 
+                            "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", 
+                            "hours-per-week", "native-country"]
+        input_data = input_data[expected_columns]
         # fill missing values 
-        input_data.fillna(self.values_fill_missing) 
+        input_data = input_data.fillna(self.values_fill_missing) 
         # convert categoricals 
         for column in [ 
             "workclass", 
